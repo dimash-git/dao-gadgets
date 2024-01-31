@@ -21,14 +21,12 @@ class CreateKitchensectionsTable extends Migration
                 $table->string('name', 55)->collation('utf8mb4_bin');
                 $table->string('eng', 55)->collation('utf8mb4_bin');
                 $table->enum('type', ['room', 'section'])->default('room');
-                $table->boolean('is_active')->default(1); // TINYINT equivalent for the "boolean" type 
-                $table->unsignedBigInteger('id_color')->nullable();
+                $table->boolean('is_active')->default(1); // TINYINT equivalent for the "boolean" type  
 
                 $table->timestamps(); // Laravel стандартные поля created_at и updated_at
                 // Добавляем ограничение внешнего ключа
                 $table->foreign('id_kitchen')->references('id')->on('kitchens')->onDelete('set null');
                 $table->foreign('parent_id')->references('id')->on('kitchensections')->onDelete('set null');
-                $table->foreign('id_color')->references('id')->on('colors')->onDelete('set null');
             });
         }
     }

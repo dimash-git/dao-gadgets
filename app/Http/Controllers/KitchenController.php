@@ -76,8 +76,7 @@ class KitchenController extends Controller
                 $room->eng = str_slug($section);
                 $room->type = 'room';
                 $room->is_active = 1;
-                $room->scrollable = 1;
-                $room->id_color  = 1;
+                $room->scrollable = 1; 
                 $room->save();
             }
         */

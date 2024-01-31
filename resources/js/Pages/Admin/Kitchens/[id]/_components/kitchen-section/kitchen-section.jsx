@@ -60,7 +60,6 @@ const KitchenSection = ({ kitchen, section }) => {
                         <div className="space-y-4 text-md text-gray-900">
                             <p>На Английском: {section?.eng}</p>
                             <p>Название: {section?.name}</p>
-                            <p>ID Цвета: {section?.id_color}</p>
                             <p>
                                 Активный:{" "}
                                 {section?.is_active === 1 ? "Да" : "Нет"}

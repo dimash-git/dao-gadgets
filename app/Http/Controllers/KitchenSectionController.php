@@ -30,7 +30,6 @@ class KitchenSectionController extends Controller
             'type' => 'in:room,section',
             'parent_id' => 'nullable|integer',
             'is_active' => 'boolean',
-            'id_color' => 'nullable|exists:colors,id',
         ]);
         $validatedData['eng'] = str_slug($validatedData['name']);
 
@@ -50,7 +49,6 @@ class KitchenSectionController extends Controller
             'type' => 'in:room,section',
             'parent_id' => 'nullable|integer',
             'is_active' => 'boolean',
-            'id_color' => 'nullable|exists:colors,id',
         ]);
         $validatedData['eng'] = str_slug($validatedData['name']);
 

@@ -33,12 +33,6 @@ class KitchenSection extends Model
         return $this->belongsTo(self::class, 'parent_id', 'id');
     }*/
 
-    /*    public function color(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(Color::class, 'id_color', 'id');
-    }*/
-
-
     protected $fillable = [
         'kitchen_id',
         'parent_id',
@@ -46,7 +40,6 @@ class KitchenSection extends Model
         'eng',
         'type',
         'is_active',
-        'id_color',
         'created_at',
         'updated_at',
     ];

@@ -12,7 +12,6 @@ const AddSectionForm = () => {
         name: "",
         is_active: 0,
         kitchen_id: kitchen?.id,
-        id_color: 1,
         parent_id: null,
         type: kitchenSectionTypes[0]?.value ?? "room",
     };

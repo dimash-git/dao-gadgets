@@ -36,13 +36,6 @@ const SectionForm = ({ formData, onChange, onSubmit, errors, children }) => {
                     Активность
                 </InputLabel>
             </div>
-            <div>
-                <TextInput
-                    value={formData.id_color}
-                    onChange={(e) => onChange("id_color", e.target.value)}
-                    placeholder="ID Цвета"
-                />
-            </div>
 
             <div>{children}</div>
 
