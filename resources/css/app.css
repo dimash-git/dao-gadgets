@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.purple-radial-gradient {
+    background: radial-gradient(
+            178.82% 169.41% at 17.71% 11.46%,
+            #ff00f7 0.01%,
+            #0b93ff 100%
+        ),
+        #fac42c;
+}
+
+.purple-gradient {
+    background: linear-gradient(to right, #ff00f2, #0099ff);
+}
+
+.gray-gradient {
+    background: linear-gradient(179deg, #e3e9f5 -55.29%, #fff 114.19%);
+}
+
+.blue-gradient {
+    background: linear-gradient(314deg, #007dbd 1.19%, #6e00ff 96.25%), #d1dce9;
+}
+
+.orange-gradient {
+    background: linear-gradient(314deg, #f70 1.19%, #fa0 96.25%), #242730;
+}
+
+nav a.active {
+    color: #ff0000; /* ваш цвет активного меню */
+    font-weight: bold;
+}
