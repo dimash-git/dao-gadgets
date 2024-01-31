@@ -28,46 +28,47 @@ export default function Show({ auth }) {
         <AuthenticatedLayout user={auth.user}>
             <Head title="DAO - Кухня" />
 
-            <div className="flex flex-col gap-y-8">
-                <div className="max-w-[1260px] mt-10">
-                    <div className="w-full px-2 py-16 sm:px-0">
-                        <Tab.Group>
-                            <Tab.List className="flex space-x-1 rounded-xl bg-slate-400/80 p-1">
-                                {categories.map((category, idx) => (
-                                    <Tab
-                                        key={idx}
-                                        className={({ selected }) =>
-                                            clsx(
-                                                "w-full rounded-lg py-2.5 text-sm font-medium leading-5 focus:outline-none",
-                                                {
-                                                    "bg-white text-purple-600 shadow":
-                                                        selected,
-                                                    "text-blue-100 hover:bg-white/[0.12] hover:text-white":
-                                                        !selected,
-                                                }
-                                            )
+            <h1 className="workarea__title">Дома : Параметры дома</h1>
+            <div className="tabs">
+                <Tab.Group>
+                    <Tab.List className="tabs__tab-list">
+                        {categories.map((category, idx) => (
+                            <Tab
+                                key={idx}
+                                className={({ selected }) =>
+                                    clsx(
+                                        "tabs__tab-item",
+                                        {
+                                            "tabs__tab-item_selected":
+                                                selected,
+                                            "":
+                                                !selected,
                                         }
-                                    >
-                                        {category.name}
-                                    </Tab>
-                                ))}
-                            </Tab.List>
-                            <Tab.Panels className="mt-2">
-                                {categories.map((category, idx) => (
-                                    <Tab.Panel
-                                        key={idx}
-                                        className={
-                                            "rounded-xl bg-white focus:outline-none"
-                                        }
-                                    >
-                                        <category.Component />
-                                    </Tab.Panel>
-                                ))}
-                            </Tab.Panels>
-                        </Tab.Group>
-                    </div>
-                </div>
+                                    )
+                                }
+                            >
+                                {category.name}
+                            </Tab>
+                        ))}
+                    </Tab.List>
+                    <Tab.Panels className="tabs__panel-container">
+                        {categories.map((category, idx) => (
+                            <Tab.Panel
+                                key={idx}
+                                className={
+                                    "tabs__panel-content"
+                                }
+                            >
+                                <category.Component />
+                            </Tab.Panel>
+                        ))}
+                    </Tab.Panels>
+                </Tab.Group>
             </div>
+
+            
+                        
+                    
         </AuthenticatedLayout>
     );
 }

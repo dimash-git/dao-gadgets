@@ -1,4 +1,4 @@
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedAdminLayout";
 import AddClassForm from "./_components/forms/add-class-form";
@@ -10,12 +10,14 @@ export default function KitchenClassesPage({ auth }) {
             {/* Page Title */}
             <Head title="DAO - Классы девайсов" />
 
-            <div className="p-4 mt-8">
-                <div className="max-w-[320px]">
-                    <AddClassForm />
-                </div>
-                <ClassList />
-            </div>
+            {/* Вынести компонент AddClassForm на отдельный роут типа users/create.  */}
+            <h1 className="workarea__title">Классы устройств : Создание элемента</h1>
+            <AddClassForm />
+
+            <h1 className="workarea__title">Классы устройств</h1>
+            <Link className="workarea__create-element-button" href="#">Создать элемент</Link> {/* Вставить ссылку на страницу создания элемента */}
+            <ClassList />
+
         </AuthenticatedLayout>
     );
 }

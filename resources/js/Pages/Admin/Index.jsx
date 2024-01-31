@@ -7,7 +7,6 @@ export default function Admin({ auth }) {
         <AuthenticatedLayout user={auth.user}>
             <Head title="DAO - Админ панель" />
 
-            <div className="flex flex-col gap-y-8"></div>
         </AuthenticatedLayout>
     );
 }

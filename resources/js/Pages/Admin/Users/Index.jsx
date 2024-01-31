@@ -1,4 +1,4 @@
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedAdminLayout";
 import AddUserForm from "./_components/forms/add-user-form";
@@ -10,13 +10,14 @@ export default function UsersPage({ auth }) {
             {/* Page Title */}
             <Head title="DAO - Пользователи" />
 
-            {/* Form and User List */}
-            <div className="p-4 mt-8">
-                <div className="max-w-[320px]">
-                    <AddUserForm />
-                </div>
-                <UserList />
-            </div>
+            {/* Вынести компонент AddUserForm на отдельный роут типа users/create.  */}
+            <h1 className="workarea__title">Пользователи : Создание элемента</h1>
+            <AddUserForm />
+            
+            <h1 className="workarea__title">Пользователи</h1>
+            <Link className="workarea__create-element-button" href="#">Создать элемент</Link> {/* Вставить ссылку на страницу создания элемента */}
+            <UserList />
+
         </AuthenticatedLayout>
     );
 }

@@ -1,4 +1,4 @@
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedAdminLayout";
 
@@ -11,13 +11,14 @@ export default function SettingsPage({ auth }) {
             {/* Page Title */}
             <Head title="DAO - Настройки" />
 
-            {/* Form and Setting List */}
-            <div className="p-4 mt-8">
-                <div className="max-w-[320px]">
-                    <AddSettingForm />
-                </div>
-                <SettingList />
-            </div>
+            {/* Вынести компонент AddSettingForm на отдельный роут */}
+            <h1 className="workarea__title">Настройки : Создание элемента</h1>
+            <AddSettingForm />
+
+            <h1 className="workarea__title">Настройки</h1>
+            <Link className="workarea__create-element-button" href="#">Создать элемент</Link> {/* Вставить ссылку на страницу создания элемента */}
+            <SettingList />
+
         </AuthenticatedLayout>
     );
 }

@@ -4,19 +4,19 @@ import Logo from "../../images/dao-logo_day.svg?react";
 
 const adminMenu = [
     {
-        name: "Все дома",
+        name: "Дома",
         url: "/kitchens",
     },
     {
-        name: "Классы девайсов",
+        name: "Классы устройств",
         url: "/device-classes",
     },
     {
-        name: "Все пользователи",
+        name: "Пользователи",
         url: "/users",
     },
     {
-        name: "Все настройки",
+        name: "Настройки",
         url: "/settings",
     },
 ];
@@ -25,45 +25,47 @@ export default function Authenticated({ user, children }) {
     const { url: currentUrl } = usePage();
 
     return (
-        <div className="bg-gray-100 min-h-[100vh] flex w-full">
-            <header className="bg-white p-4 shadow-md md:min-w-[320px]">
-                <Link href="/admin">
-                    <Logo height="34" />
+        <div className="admin">
+            <header className="admin__header">
+                <Link className="admin__logo-link" href="/admin">
+                    <Logo className="admin__logo" />
                 </Link>
-                <nav className="flex flex-col gap-y-4 mt-20">
+                <nav className="admin__nav-tree">
                     {adminMenu.map((link, idx) => (
                         <Link
                             key={idx}
                             href={`/admin${link?.url}`}
-                            className={
-                                currentUrl.startsWith(`/admin${link?.url}`)
-                                    ? "active"
-                                    : ""
-                            }
+                            className={`admin__nav-item ${
+                                currentUrl.startsWith(`/admin${link?.url}`) &&
+                                "admin__nav-item_active"
+                            }`}
                         >
                             {link?.name}
                         </Link>
                     ))}
                 </nav>
+                <p className="admin__motto ">Система управления умным домом</p>
             </header>
-            <main className="flex-1 p-4">
-                <div className="flex justify-between items-center">
-                    <span>Поиск</span>
-                    <div className="flex gap-2">
-                        <div className="bg-white rounded-full px-6 py-2 text-[16px] leading-4 font-semibold shadow-md hover:bg-slate-400 transition cursor-pointer">
+            <main className="admin__main">
+                <div className="admin__background"></div>
+                <div className="admin__topbar">
+                    <span className="admin__search">Здесь будет поиск</span>
+                    <div className="admin__userbar">
+                        <div className="admin__user-icon"></div>
+                        <div className="admin__username">
                             {user.roles?.[0].name}
                         </div>
-                        <Link
-                            href={route("logout")}
-                            method="post"
-                            as="div"
-                            className="bg-black rounded-full px-6 py-2 text-white text-[16px] leading-4 font-semibold shadow-md hover:bg-slate-400 transition cursor-pointer"
-                        >
-                            Выход
-                        </Link>
                     </div>
+                    <Link
+                        href={route("logout")}
+                        method="post"
+                        as="div"
+                        className="admin__logout-button"
+                    >
+                        Выход
+                    </Link>
                 </div>
-                <div>{children}</div>
+                <div className="admin__workarea">{children}</div>
             </main>
         </div>
     );

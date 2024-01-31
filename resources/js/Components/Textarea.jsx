@@ -14,7 +14,7 @@ export default forwardRef(function Textarea(
     }, [isFocused]);
 
     const textareaClasses = clsx(
-        "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full",
+        "textarea",
         className
     );
 

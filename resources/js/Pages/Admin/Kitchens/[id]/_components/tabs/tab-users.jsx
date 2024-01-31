@@ -11,25 +11,36 @@ const TabUsers = () => {
     console.log(kitchen);
 
     return (
-        <div className="p-4 mt-8 bg-slate-200 rounded-xl">
-            <div className="max-w-[320px]">
-                <AddUserForm kitchen={kitchen} />
+        <>
+            <h2 className="workarea__subtitle">Добавить пользователя</h2>
+            <AddUserForm kitchen={kitchen} />
+            <h2 className="workarea__subtitle">Все пользователи</h2>
+            <div className="workarea__table-container">
+                <table className="workarea__table">
+                    <thead className="workarea__table-head">
+                        <tr className="workarea__table-row">
+                            {/* В дальнейшем реализовать создание заголовков таблицы циклом по выбранным параметрам */}
+                            <th className="workarea__table-header">ID</th>
+                            <th className="workarea__table-header">Имя</th>
+                            <th className="workarea__table-header">Email</th>
+                            <th className="workarea__table-header">Дом</th>
+                            <th className="workarea__table-header">Роль</th>
+                            <th className="workarea__table-header"></th>
+                        </tr>
+                    </thead>
+                    <tbody className="workarea__table-body">
+                    {users.map((user, idx) => (
+                                <User
+                                    key={idx}
+                                    user={user}
+                                    kitchens={kitchens}
+                                    roles={roles}
+                                />
+                            ))}
+                    </tbody>
+                </table>
             </div>
-            <div className="flex flex-col gap-y-8">
-                <div className="max-w-[1260px] mt-8">
-                    <div className="mt-6 bg-white shadow-sm rounded-lg divide-y">
-                        {users.map((user, idx) => (
-                            <User
-                                key={idx}
-                                user={user}
-                                kitchens={kitchens}
-                                roles={roles}
-                            />
-                        ))}
-                    </div>
-                </div>
-            </div>
-        </div>
+        </>
     );
 };
 

@@ -58,7 +58,7 @@ const AddKitchenForm = () => {
             onSubmit={handleSubmit}
             errors={errors}
         >
-            <PrimaryButton type="submit">Добавить кухню</PrimaryButton>
+            <PrimaryButton type="submit">Сохранить</PrimaryButton>
         </KitchenForm>
     );
 };
