@@ -6,13 +6,22 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { deviceTypes } from "@/constants/device";
 
 const AddDeviceForm = ({ section, onClose }) => {
-    const { kitchen } = usePage().props;
+    const { kitchen, device_classes } = usePage().props;
 
     const defaultValues = {
         kitchen_id: kitchen.id,
         id_kitchen_section: section.id,
-        device_name: "",
         type: deviceTypes[0]?.value ?? "",
+        device_name: "",
+        icon: "",
+        video_code: "",
+        line_number: "",
+        hall_number: "",
+        zigbee_config: "",
+        manufacturer: "",
+        model: "",
+        is_active: 1,
+        id_device_class: device_classes[0]?.id ?? "",
     };
 
     const { data, setData, post, errors } = useForm(defaultValues);
@@ -56,6 +65,7 @@ const AddDeviceForm = ({ section, onClose }) => {
             onChange={handleChange}
             onSubmit={handleSubmit}
             errors={errors}
+            deviceClasses={device_classes}
         >
             <PrimaryButton type="submit" className="mt-4">
                 Добавить

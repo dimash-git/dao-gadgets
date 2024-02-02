@@ -12,6 +12,7 @@ const AddClassForm = () => {
         division_into_devices: "",
         crutch_rgb_backlight: "",
         device_parameters: "",
+        is_service: 0,
     };
     const { data, setData, post, errors } = useForm(defaultValues);
 

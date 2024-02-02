@@ -32,7 +32,18 @@ class Device extends Model
     // надо указать какие поля можем заполнять в бд
     protected $fillable = [
         'kitchen_id',
-        'device_name',
         'id_kitchen_section',
+        'id_device_class',
+        'device_name',
+        'type',
+        'icon',
+        'video_code',
+        'line_number',
+        'hall_number',
+        'is_active',
+        'zigbee_config',
+        'manufacturer',
+        'model',
+        'type'
     ];
 }

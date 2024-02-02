@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 
 import PrimaryButton from "@/Components/PrimaryButton";
 import ParamForm from "./param-form";
+import { deviceFrontTypes } from "@/constants/device";
 
 const AddParamForm = () => {
     const { deviceClass } = usePage().props;
@@ -27,6 +28,7 @@ const AddParamForm = () => {
         independent_device: 0,
         type: "",
         in_scenario_active: 0,
+        front_type: deviceFrontTypes[0]?.value,
     };
     const { data, setData, post, errors } = useForm(defaultValues);
 

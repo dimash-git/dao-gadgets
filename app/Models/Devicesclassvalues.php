@@ -13,7 +13,7 @@ class Devicesclassvalues extends Model
 
     public function devicesclass(): BelongsTo
     {
-        return $this->belongsTo(Devicesclass::class,'id_device_class');
+        return $this->belongsTo(Devicesclass::class, 'id_device_class');
     }
     protected $fillable = [
         'id_device_class',
@@ -21,7 +21,7 @@ class Devicesclassvalues extends Model
         'intependent_title',
         'default_value',
         'topic',
-        'relay_duration',//Избавиться от костылей кок будет понятно что ребята хотят видеть в админке
+        'relay_duration', //Избавиться от костылей кок будет понятно что ребята хотят видеть в админке
         'topic_read',
         'run_this_code_on_change',
         'val',
@@ -35,6 +35,7 @@ class Devicesclassvalues extends Model
         'independent_device',
         'type',
         'in_scenario_active',
+        'front_type',
         'created_at',
         'updated_at'
     ];

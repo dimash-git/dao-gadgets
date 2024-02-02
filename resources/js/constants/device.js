@@ -5,3 +5,15 @@ export const deviceTypes = [
     { name: "Техника", value: "tech" },
     { name: "Другое", value: "other" },
 ];
+
+export const deviceFrontTypes = [
+    {
+        name: "Тогл",
+        value: "toggle",
+    },
+    { name: "Полузнок", value: "slider" },
+    {
+        name: "Чекбокс",
+        value: "checkbox",
+    },
+];

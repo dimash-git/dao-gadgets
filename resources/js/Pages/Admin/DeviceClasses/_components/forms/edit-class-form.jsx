@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import PrimaryButton from "@/Components/PrimaryButton";
 import ClassForm from "./class-form";
 
-const EditClassForm = ({ setEditing, deviceClass }) => {
+const EditClassForm = ({ deviceClass, closeModal = null }) => {
     const {
         name,
         type,
@@ -12,6 +12,7 @@ const EditClassForm = ({ setEditing, deviceClass }) => {
         division_into_devices,
         crutch_rgb_backlight,
         device_parameters,
+        is_service,
     } = deviceClass;
 
     const defaultValues = {
@@ -21,6 +22,7 @@ const EditClassForm = ({ setEditing, deviceClass }) => {
         division_into_devices,
         crutch_rgb_backlight,
         device_parameters,
+        is_service,
     };
 
     const { data, setData, patch, errors, reset } = useForm(defaultValues);
@@ -43,7 +45,7 @@ const EditClassForm = ({ setEditing, deviceClass }) => {
                     position: "bottom-right",
                     reverseOrder: true,
                 });
-                setEditing(false);
+                closeModal();
             },
             onError: (errors) => {
                 toast.error("Ошибка!", {
@@ -61,12 +63,16 @@ const EditClassForm = ({ setEditing, deviceClass }) => {
             onSubmit={handleSubmit}
             errors={errors}
         >
-            <div className="space-x-2">
-                <PrimaryButton>Сохранить</PrimaryButton>
-                <button onClick={() => setEditing(false) && reset()}>
-                    Отменить
-                </button>
-            </div>
+            <PrimaryButton>Сохранить</PrimaryButton>
+            <button
+                onClick={() => {
+                    closeModal();
+                    reset();
+                }}
+                type="button"
+            >
+                Отменить
+            </button>
         </ClassForm>
     );
 };

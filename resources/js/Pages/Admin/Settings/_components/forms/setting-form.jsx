@@ -15,12 +15,10 @@ const SettingForm = ({
 }) => {
     return (
         <form onSubmit={onSubmit} className="workarea__form">
-
-            {errors && (
+            {errors &&
                 Object.keys(errors).map((key) => (
                     <InputError key={key}>{errors[key]}</InputError>
-                ))
-            )}
+                ))}
 
             <div className="workarea__input-container">
                 <div className="workarea__input-row">
@@ -36,10 +34,7 @@ const SettingForm = ({
                     />
                 </div>
                 <div className="workarea__input-row">
-                    <InputLabel
-                        value="Имя параметра"
-                        htmlFor="setting.name"
-                    />
+                    <InputLabel value="Имя параметра" htmlFor="setting.name" />
                     <TextInput
                         value={formData.name}
                         id="setting.name"
@@ -48,10 +43,7 @@ const SettingForm = ({
                     />
                 </div>
                 <div className="workarea__input-row">
-                    <InputLabel
-                        value="Значение"
-                        htmlFor="setting.value"
-                    />
+                    <InputLabel value="Значение" htmlFor="setting.value" />
                     <TextInput
                         value={formData.value}
                         id="setting.value"
@@ -60,14 +52,13 @@ const SettingForm = ({
                     />
                 </div>
                 <div className="workarea__input-row">
-                    <InputLabel
-                        value="Дом"
-                        htmlFor="setting.kitchen"
-                    />
+                    <InputLabel value="Дом" htmlFor="setting.kitchen" />
                     <Select
                         id="setting.kitchen"
                         options={kitchens}
-                        setSelected={(value) => onChange("kitchen_id", value.id)}
+                        setSelected={(value) =>
+                            onChange("kitchen_id", value.id)
+                        }
                         selected={kitchens.find(
                             (k) => k.id === formData.kitchen_id
                         )} // возвращает обьект выбранного дома
@@ -83,15 +74,14 @@ const SettingForm = ({
                         id="setting.description"
                         placeholder="Введите описание параметра"
                         value={formData.description}
-                        onChange={(e) => onChange("description", e.target.value)}
+                        onChange={(e) =>
+                            onChange("description", e.target.value)
+                        }
                         isFocused={false}
                     />
                 </div>
                 <div className="workarea__input-row">
-                    <InputLabel
-                        value="Активность"
-                        htmlFor="setting.active"
-                    />
+                    <InputLabel value="Активность" htmlFor="setting.active" />
                     <Checkbox
                         id="setting.active"
                         checked={formData.active}
@@ -101,9 +91,10 @@ const SettingForm = ({
                     />
                 </div>
             </div>
-            <div>{children}</div>
 
-            
+            <div className="flex items-center justify-center gap-4 mt-4 w-full">
+                {children}
+            </div>
         </form>
     );
 };

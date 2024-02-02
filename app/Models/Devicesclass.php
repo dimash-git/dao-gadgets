@@ -14,7 +14,7 @@ class Devicesclass extends Model
 
     public function devicesclassvalues(): HasMany
     {
-        return $this->hasMany(Devicesclassvalues::class,'id_device_class');
+        return $this->hasMany(Devicesclassvalues::class, 'id_device_class');
     }
 
     protected $fillable = [
@@ -23,8 +23,9 @@ class Devicesclass extends Model
         'type',
         'description',
         'division_into_devices',
-        'crutch_rgb_backlight',//Избавиться от костылей кок будет понятно что ребята хотят видеть в админке
+        'crutch_rgb_backlight', //Избавиться от костылей кок будет понятно что ребята хотят видеть в админке
         'device_parameters',
+        'is_service',
         'created_at',
         'updated_at'
     ];

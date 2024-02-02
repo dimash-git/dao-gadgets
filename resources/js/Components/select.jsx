@@ -9,7 +9,6 @@ export default function Select(props) {
         setSelected,
         placeholder = "Выберите значение",
     } = props;
-    //console.log(props)
     return (
         <div className="select">
             <Listbox value={selected} onChange={setSelected}>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
+use App\Models\Devicesclass;
+use App\Models\Devicevalues;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
@@ -33,15 +35,41 @@ class DeviceController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'kitchen_id' => 'required',
-            'device_name' => 'required|string|max:255',
-            'type' => 'in:sensor,door,backlight,tech,other',
-            'id_kitchen_section' => 'required',
+            'kitchen_id' => 'nullable|exists:kitchens,id',
+            'id_kitchen_section' => 'nullable|exists:kitchensections,id',
+            'id_device_class' => 'nullable|exists:devicesclasses,id',
+            'device_name' => 'required|string|max:50',
+            'icon' => 'nullable|string|max:255',
+            'video_code' => 'nullable|string',
+            'line_number' => 'nullable|string|max:30',
+            'hall_number' => 'nullable|string|max:30',
+            'is_active' => 'boolean',
+            'zigbee_config' => 'nullable|string',
+            'manufacturer' => 'nullable|string|max:255',
+            'model' => 'nullable|string|max:255',
+            'type' => 'in:sensor,door,backlight,tech,other'
         ]);
 
-        Device::create($validatedData);
+        $device = Device::create($validatedData);
+        // Log::debug($request->all());
 
-        return redirect()->back();
+        if (isset($validatedData['id_device_class'])) {
+
+            $devicesClass = Devicesclass::find($validatedData['id_device_class']);
+
+            if ($devicesClass) {
+                Devicevalues::create(
+                    [
+                        'id_device_value' => $devicesClass->id,
+                        'id_kitchen_device' => $device->id,
+                        'property' => $devicesClass->name,
+                        'value' => '',
+                    ]
+                );
+            }
+        }
+
+        return redirect()->back()->with('message', 'Device successfully created.');
     }
 
     /**
@@ -66,15 +94,24 @@ class DeviceController extends Controller
     public function update(Request $request, Device $device)
     {
         $validatedData = $request->validate([
-            'kitchen_id' => 'required',
-            'device_name' => 'required|string|max:255',
-            'type' => 'in:sensor,door,backlight,tech,other',
-            'id_kitchen_section' => 'required',
+            'kitchen_id' => 'nullable|exists:kitchens,id',
+            'id_kitchen_section' => 'nullable|exists:kitchensections,id',
+            'id_device_class' => 'nullable|exists:devicesclasses,id',
+            'device_name' => 'required|string|max:50',
+            'icon' => 'nullable|string|max:255',
+            'video_code' => 'nullable|string',
+            'line_number' => 'nullable|string|max:30',
+            'hall_number' => 'nullable|string|max:30',
+            'is_active' => 'boolean',
+            'zigbee_config' => 'nullable|string',
+            'manufacturer' => 'nullable|string|max:255',
+            'model' => 'nullable|string|max:255',
+            'type' => 'in:sensor,door,backlight,tech,other'
         ]);
 
         $device->update($validatedData);
 
-        return redirect()->back();
+        return redirect()->back()->with('message', 'Device successfully updated.');
     }
 
     /**

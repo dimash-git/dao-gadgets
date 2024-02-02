@@ -1,12 +1,19 @@
-export default function PrimaryButton({ className = '', disabled, children, ...props }) {
+import clsx from "clsx";
+
+export default function PrimaryButton({
+    className = "",
+    disabled,
+    children,
+    ...props
+}) {
     return (
         <button
             {...props}
-            className={
-                `primary-button ${
-                    disabled && 'primary-button_disabled'
-                } ` + className
-            }
+            className={clsx(
+                "primary-button",
+                disabled ? "primary-button_disabled" : null,
+                className
+            )}
             disabled={disabled}
         >
             {children}

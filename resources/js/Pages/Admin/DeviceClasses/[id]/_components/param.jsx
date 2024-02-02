@@ -75,6 +75,7 @@ const Param = ({ param }) => {
                             <p>
                                 In Scenario Active: {param?.in_scenario_active}
                             </p>
+                            <p>Front type: {param?.front_type}</p>
                         </div>
                     )}
                 </div>

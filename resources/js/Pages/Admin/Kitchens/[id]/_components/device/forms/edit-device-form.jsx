@@ -1,5 +1,4 @@
-import { Inertia } from "@inertiajs/inertia";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import toast from "react-hot-toast";
 
 import DeviceForm from "./device-form";
@@ -7,12 +6,40 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import DangerButton from "@/Components/DangerButton";
 
 const EditDeviceForm = ({ device, onClose }) => {
-    const { kitchen_id, device_name, id_kitchen_section } = device;
+    const { device_classes } = usePage().props;
+
+    const {
+        kitchen_id,
+        device_name,
+        id_kitchen_section,
+        type,
+        icon,
+        video_code,
+        line_number,
+        hall_number,
+        zigbee_config,
+        manufacturer,
+        model,
+        is_active,
+        id_device_class,
+    } = device;
+
+    console.log(device);
 
     const defaultValues = {
         kitchen_id,
         id_kitchen_section,
         device_name,
+        type,
+        icon,
+        video_code,
+        line_number,
+        hall_number,
+        zigbee_config,
+        manufacturer,
+        model,
+        is_active,
+        id_device_class,
     };
 
     const {
@@ -76,9 +103,12 @@ const EditDeviceForm = ({ device, onClose }) => {
             onChange={handleChange}
             onSubmit={handleSubmit}
             errors={errors}
+            deviceClasses={device_classes}
         >
             <div className="mt-4 flex space-x-2 items-center">
-                <PrimaryButton type="submit">Редактировать</PrimaryButton>
+                <PrimaryButton type="submit" className="mt-0">
+                    Редактировать
+                </PrimaryButton>
                 <DangerButton
                     type="button"
                     className="ms-3"

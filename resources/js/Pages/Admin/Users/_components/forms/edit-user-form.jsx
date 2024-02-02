@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import PrimaryButton from "@/Components/PrimaryButton";
 import UserForm from "./user-form";
 
-const EditUserForm = ({ setEditing, user, kitchens, roles }) => {
+const EditUserForm = ({ user, kitchens, roles, closeModal = null }) => {
     const { name, email, password, kitchen_id, roles: currentUserRoles } = user;
 
     const defaultValues = {
@@ -34,7 +34,7 @@ const EditUserForm = ({ setEditing, user, kitchens, roles }) => {
                     position: "bottom-right",
                     reverseOrder: true,
                 });
-                setEditing(false);
+                closeModal();
             },
             onError: (errors) => {
                 toast.error("Ошибка!", {
@@ -54,12 +54,16 @@ const EditUserForm = ({ setEditing, user, kitchens, roles }) => {
             kitchens={kitchens}
             roles={roles}
         >
-            <div className="space-x-2">
-                <PrimaryButton>Сохранить</PrimaryButton>
-                <button onClick={() => setEditing(false) && reset()}>
-                    Отменить
-                </button>
-            </div>
+            <PrimaryButton>Сохранить</PrimaryButton>
+            <button
+                onClick={() => {
+                    closeModal();
+                    reset();
+                }}
+                type="button"
+            >
+                Отменить
+            </button>
         </UserForm>
     );
 };

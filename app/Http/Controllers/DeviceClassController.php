@@ -37,7 +37,7 @@ class DeviceClassController extends Controller
             'division_into_devices' => 'required|integer',
             'crutch_rgb_backlight' => 'required|integer',
             'device_parameters' => 'required|integer',
-
+            'is_service' => 'boolean'
         ]);
         $validatedData['eng'] = str_slug($validatedData['name']);
 

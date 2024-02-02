@@ -45,7 +45,7 @@ const DevicesTree = ({ tree }) => {
                             </>
                         )
                     ) : (
-                        <>asd</>
+                        <>No action set.</>
                     )}
                 </div>
             </Modal>

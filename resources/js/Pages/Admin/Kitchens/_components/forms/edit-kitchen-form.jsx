@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import PrimaryButton from "@/Components/PrimaryButton";
 import KitchenForm from "./kitchen-form";
 
-const EditKitchenForm = ({ setEditing, kitchen, kitchens }) => {
+const EditKitchenForm = ({ kitchen, kitchens, closeModal = null }) => {
     const {
         name,
         contract_number,
@@ -16,7 +16,7 @@ const EditKitchenForm = ({ setEditing, kitchen, kitchens }) => {
         settings_general,
         settings_mosfet,
     } = kitchen;
-    console.log(kitchen);
+
     const defaultValues = {
         name,
         contract_number,
@@ -48,7 +48,7 @@ const EditKitchenForm = ({ setEditing, kitchen, kitchens }) => {
                     position: "bottom-right",
                     reverseOrder: true,
                 });
-                setEditing(false);
+                closeModal();
             },
             onError: (errors) => {
                 console.error(errors);
@@ -68,12 +68,16 @@ const EditKitchenForm = ({ setEditing, kitchen, kitchens }) => {
             errors={errors}
             kitchens={kitchens}
         >
-            <div className="space-x-2">
-                <PrimaryButton>Сохранить</PrimaryButton>
-                <button onClick={() => setEditing(false) && reset()}>
-                    Отменить
-                </button>
-            </div>
+            <PrimaryButton className="mt-0">Сохранить</PrimaryButton>
+            <button
+                onClick={() => {
+                    closeModal();
+                    reset();
+                }}
+                type="button"
+            >
+                Отменить
+            </button>
         </KitchenForm>
     );
 };

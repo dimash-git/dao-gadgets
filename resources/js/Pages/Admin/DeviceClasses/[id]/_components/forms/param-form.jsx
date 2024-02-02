@@ -1,5 +1,7 @@
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
+import Select from "@/Components/select";
+import { deviceFrontTypes } from "@/constants/device";
 
 const ParamForm = ({ formData, onChange, onSubmit, errors, children }) => {
     return (
@@ -80,6 +82,15 @@ const ParamForm = ({ formData, onChange, onSubmit, errors, children }) => {
                     placeholder="Yandex Properties"
                 />
             </div>
+            <div>
+                <TextInput
+                    value={formData.run_this_code_on_change}
+                    onChange={(e) =>
+                        onChange("run_this_code_on_change", e.target.value)
+                    }
+                    placeholder="Run this code on change"
+                />
+            </div>
 
             <div>
                 <TextInput
@@ -142,6 +153,19 @@ const ParamForm = ({ formData, onChange, onSubmit, errors, children }) => {
                         onChange("in_scenario_active", e.target.value)
                     }
                     placeholder="In Scenario Active"
+                />
+            </div>
+
+            <div>
+                <Select
+                    options={deviceFrontTypes}
+                    setSelected={(selected) =>
+                        onChange("front_type", selected.value)
+                    }
+                    selected={deviceFrontTypes.find(
+                        (type) => type.value === formData.front_type
+                    )}
+                    placeholder="Выберите тип (фронт)"
                 />
             </div>
 

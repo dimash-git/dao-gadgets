@@ -2,9 +2,15 @@ import { usePage } from "@inertiajs/react";
 
 import User from "./user";
 import InertiaPagination from "@/Components/InertiaPagination";
+import { useState } from "react";
+import Modal from "@/Components/Modal";
+import EditUserForm from "./forms/edit-user-form";
 
 const UserList = () => {
     const { users, kitchens, roles } = usePage().props;
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [current, setCurrent] = useState(null);
 
     return (
         <div className="workarea__table-container">
@@ -27,11 +33,31 @@ const UserList = () => {
                             user={user}
                             kitchens={kitchens}
                             roles={roles}
+                            openModal={() => setIsModalOpen(true)}
+                            setCurrent={setCurrent}
                         />
                     ))}
                 </tbody>
             </table>
-        </div>       
+
+            <Modal
+                show={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                className="sm:max-w-[1000px]"
+            >
+                <div className="p-4">
+                    <h2 className="text-lg leading-5 font-semibold mb-8">
+                        Редактировать Пользователя
+                    </h2>
+                    <EditUserForm
+                        closeModal={() => setIsModalOpen(false)}
+                        user={current}
+                        kitchens={kitchens}
+                        roles={roles}
+                    />
+                </div>
+            </Modal>
+        </div>
     );
 };
 

@@ -1,12 +1,13 @@
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import toast from "react-hot-toast";
 
 import PrimaryButton from "@/Components/PrimaryButton";
 import ParamForm from "./param-form";
 
 const EditParamForm = ({ setEditing, param }) => {
+    const { deviceClass } = usePage().props;
+
     const {
-        id,
         name,
         intependent_title,
         default_value,
@@ -24,10 +25,11 @@ const EditParamForm = ({ setEditing, param }) => {
         independent_device,
         type,
         in_scenario_active,
-    } = deviceClass;
+        front_type,
+    } = param;
 
     const defaultValues = {
-        id,
+        id_device_class: deviceClass?.id,
         name,
         intependent_title,
         default_value,
@@ -45,6 +47,7 @@ const EditParamForm = ({ setEditing, param }) => {
         independent_device,
         type,
         in_scenario_active,
+        front_type,
     };
 
     const { data, setData, patch, errors, reset } = useForm(defaultValues);
@@ -58,8 +61,10 @@ const EditParamForm = ({ setEditing, param }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        patch(route("device-class-values.update", deviceClass.id), {
+        console.log(data);
+        console.log(param.id);
+        // return;
+        patch(route("device-class-values.update", param.id), {
             preserveScroll: true,
             preserveState: true,
             onSuccess: () => {

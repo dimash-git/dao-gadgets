@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Devicesclassvalues;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class DeviceClassValuesController extends Controller
@@ -40,6 +41,9 @@ class DeviceClassValuesController extends Controller
             'independent_device' => 'required|integer',
             'type' => 'required|string|max:255',
             'in_scenario_active' => 'required|integer',
+
+            'front_type' => 'in:toggle,slider,checkbox',
+
         ]);
         $validatedData['eng'] = str_slug($validatedData['name']);
 
@@ -51,7 +55,7 @@ class DeviceClassValuesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Devicesclassvalues $devices_class_value)
+    public function show(Devicesclassvalues $device_class_value)
     {
         //
     }
@@ -59,7 +63,7 @@ class DeviceClassValuesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Devicesclassvalues $devices_class_value)
+    public function update(Request $request, Devicesclassvalues $device_class_value)
     {
         $validatedData = $request->validate([
             'id_device_class' => 'required|exists:devicesclasses,id',
@@ -80,10 +84,14 @@ class DeviceClassValuesController extends Controller
             'independent_device' => 'required|integer',
             'type' => 'required|string|max:255',
             'in_scenario_active' => 'required|integer',
+
+            'front_type' => 'in:toggle,slider,checkbox',
         ]);
         $validatedData['eng'] = str_slug($validatedData['name']);
 
-        $devices_class_value->update($validatedData);
+        $device_class_value->update($validatedData);
+        // Log::debug($device_class_value)
+        // Log::debug($request->all());
 
         return redirect()->back();
     }
@@ -91,9 +99,9 @@ class DeviceClassValuesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Devicesclassvalues $devices_class_value)
+    public function destroy(Devicesclassvalues $device_class_value)
     {
-        $devices_class_value->delete();
+        $device_class_value->delete();
 
         return redirect()->back();
     }

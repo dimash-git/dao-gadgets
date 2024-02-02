@@ -5,19 +5,14 @@ import TextInput from "@/Components/TextInput";
 const KitchenForm = ({ formData, onChange, onSubmit, errors, children }) => {
     return (
         <form onSubmit={onSubmit} className="workarea__form">
-            
-            {errors && 
+            {errors &&
                 Object.keys(errors).map((key) => (
                     <InputError key={key}>{errors[key]}</InputError>
-                ))
-            }
+                ))}
 
-            <div className="workarea__input-container">
+            <div className="workarea__input-container grid grid-cols-2">
                 <div className="workarea__input-row">
-                    <InputLabel
-                        value="Название дома"
-                        htmlFor="home.name"
-                    />
+                    <InputLabel value="Название дома" htmlFor="home.name" />
                     <TextInput
                         value={formData.name}
                         id="home.name"
@@ -40,10 +35,7 @@ const KitchenForm = ({ formData, onChange, onSubmit, errors, children }) => {
                     />
                 </div>
                 <div className="workarea__input-row">
-                    <InputLabel
-                        value="Адрес"
-                        htmlFor="home.address"
-                    />
+                    <InputLabel value="Адрес" htmlFor="home.address" />
                     <TextInput
                         value={formData.address}
                         id="home.address"
@@ -74,7 +66,9 @@ const KitchenForm = ({ formData, onChange, onSubmit, errors, children }) => {
                         value={formData.mqtt_prefix}
                         id="home.mqtt-prefix"
                         placeholder="MQTT Префикс"
-                        onChange={(e) => onChange("mqtt_prefix", e.target.value)}
+                        onChange={(e) =>
+                            onChange("mqtt_prefix", e.target.value)
+                        }
                     />
                 </div>
                 <div className="workarea__input-row">
@@ -135,8 +129,9 @@ const KitchenForm = ({ formData, onChange, onSubmit, errors, children }) => {
                 </div>
             </div>
 
-            <div>{children}</div>
-            
+            <div className="flex items-center justify-center gap-4 mt-4 w-full">
+                {children}
+            </div>
         </form>
     );
 };

@@ -1,23 +1,19 @@
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
+import Checkbox from "@/Components/Checkbox";
 
 const ClassForm = ({ formData, onChange, onSubmit, errors, children }) => {
     return (
         <form onSubmit={onSubmit} className="workarea__form">
-            
-            {errors && (
+            {errors &&
                 Object.keys(errors).map((key) => (
                     <InputError key={key}>{errors[key]}</InputError>
-                ))
-            )}
-            
+                ))}
+
             <div className="workarea__input-container">
                 <div className="workarea__input-row">
-                    <InputLabel
-                        value="Название"
-                        htmlFor="class.name"
-                    />
+                    <InputLabel value="Название" htmlFor="class.name" />
                     <TextInput
                         value={formData.name}
                         id="class.name"
@@ -26,10 +22,7 @@ const ClassForm = ({ formData, onChange, onSubmit, errors, children }) => {
                     />
                 </div>
                 <div className="workarea__input-row">
-                    <InputLabel
-                        value="Тип"
-                        htmlFor="class.type"
-                    />
+                    <InputLabel value="Тип" htmlFor="class.type" />
                     <TextInput
                         value={formData.type}
                         id="class.type"
@@ -38,14 +31,13 @@ const ClassForm = ({ formData, onChange, onSubmit, errors, children }) => {
                     />
                 </div>
                 <div className="workarea__input-row">
-                    <InputLabel
-                        value="Описание"
-                        htmlFor="class.description"
-                    />
+                    <InputLabel value="Описание" htmlFor="class.description" />
                     <TextInput
                         value={formData.description}
                         id="class.description"
-                        onChange={(e) => onChange("description", e.target.value)}
+                        onChange={(e) =>
+                            onChange("description", e.target.value)
+                        }
                         placeholder="Description"
                     />
                 </div>
@@ -94,10 +86,20 @@ const ClassForm = ({ formData, onChange, onSubmit, errors, children }) => {
                         placeholder="Device Parameters"
                     />
                 </div>
+                <div className="workarea__input-row">
+                    <InputLabel value="Сервисный" htmlFor="class.is_service" />
+                    <Checkbox
+                        checked={formData.is_service}
+                        onChange={(e) =>
+                            onChange("is_service", e.target.checked ? 1 : 0)
+                        }
+                    />
+                </div>
             </div>
 
-            <div>{children}</div>
-
+            <div className="flex items-center justify-center gap-4 mt-4 w-full">
+                {children}
+            </div>
         </form>
     );
 };
