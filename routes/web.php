@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\KitchenSectionController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ProfileController;
@@ -68,17 +69,26 @@ Route::middleware('auth')->group(function () {
         Route::resource('device-class-values', DeviceClassValuesController::class)
             ->only(['store', 'update', 'destroy',]);
 
-        /*
-        * Settings 
-        */
-        Route::resource('settings', SettingsController::class)
-            ->only(['index', 'store', 'update', 'destroy']);
 
         /*
         * Users 
         */
         Route::resource('users', UserController::class)
             ->only(['index', 'store', 'update', 'destroy']);
+
+
+        /*
+        * Settings 
+        */
+        Route::resource('settings', SettingsController::class)
+            ->only(['index', 'store', 'update', 'destroy']);
+
+
+        /* 
+        * News
+        */
+        Route::resource('news', NewsController::class)
+            ->only(['index', 'store', 'update', 'show', 'destroy']);
     });
 
     // 2. Хотим что бы группу рутов защищал auth middleware для проверки авторизовации перед обращением GET, PATCH, DELETE запросов

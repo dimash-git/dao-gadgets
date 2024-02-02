@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kitchen;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Inertia\Inertia;
 
 class NewsController extends Controller
 {
@@ -12,8 +15,11 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::with('user:id,name')->latest()->get();
-        return response()->json($news);
+        $newsItems = News::with('kitchens')->latest()->get();
+
+        $kitchens = Kitchen::all();
+
+        return Inertia::render('Admin/News/Index', ['news_list' => $newsItems, 'kitchens' => $kitchens]);
     }
 
     /**
@@ -29,22 +35,19 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
+            'kitchen_ids' => 'required|array',
+            'kitchen_ids.*' => 'integer|exists:kitchens,id', // Validates each element in the array
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'date' => 'required|date',
-            'img' => 'string|nullable'
+            'cover' => 'nullable|string|max:255',
         ]);
 
-        $news = News::create([
-            'user_id' => auth()->id(),
-            'title' => $request->title,
-            'description' => $request->description,
-            'date' => $request->date,
-            'img' => $request->img
-        ]);
+        $news = News::create($validatedData);
 
-        return response()->json($news, 201);
+        $news->kitchens()->attach($validatedData['kitchen_ids']);
+
+        return redirect()->back()->with('message', 'News successfully created.');
     }
 
     /**
@@ -52,7 +55,17 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        //
+        $news->refresh()->load('kitchens');
+
+        $kitchens = Kitchen::all();
+
+        return Inertia::render(
+            'Admin/News/[id]/Show',
+            [
+                "news" => $news,
+                "kitchens" => $kitchens,
+            ]
+        );
     }
 
     /**
@@ -68,14 +81,30 @@ class NewsController extends Controller
      */
     public function update(Request $request, News $news)
     {
-        //
+        $validatedData = $request->validate([
+            'kitchen_ids' => 'required|array',
+            'kitchen_ids.*' => 'integer|exists:kitchens,id',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'cover' => 'nullable|string|max:255',
+        ]);
+
+        $newsData = Arr::except($validatedData, ['kitchen_ids']);
+        $news->update($newsData);
+
+        $news->kitchens()->sync($validatedData['kitchen_ids']);
+
+        return redirect()->back()->with('message', 'News successfully updated.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(News $news)
     {
-        //
+        $news->delete();
+
+        return redirect()->route('news.index')->with('message', 'News successfully deleted.');
     }
 }

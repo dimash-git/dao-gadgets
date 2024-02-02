@@ -19,6 +19,10 @@ const adminMenu = [
         name: "Настройки",
         url: "/settings",
     },
+    {
+        name: "Новости",
+        url: "/news",
+    },
 ];
 
 export default function Authenticated({ user, children }) {
