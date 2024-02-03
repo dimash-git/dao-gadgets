@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\DeviceCreated;
+use App\Events\DeviceDeleted;
+use App\Events\DeviceUpdated;
 use App\Models\Device;
 use App\Models\Devicesclass;
 use App\Models\Devicevalues;
@@ -69,6 +72,8 @@ class DeviceController extends Controller
             }
         }
 
+        event(new DeviceCreated($device));
+
         return redirect()->back()->with('message', 'Device successfully created.');
     }
 
@@ -111,6 +116,8 @@ class DeviceController extends Controller
 
         $device->update($validatedData);
 
+        event(new DeviceUpdated($device));
+
         return redirect()->back()->with('message', 'Device successfully updated.');
     }
 
@@ -119,6 +126,8 @@ class DeviceController extends Controller
      */
     public function destroy(Device $device)
     {
+        event(new DeviceDeleted($device));
+
         $device->delete();
 
         return redirect()->back();

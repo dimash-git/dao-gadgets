@@ -14,9 +14,9 @@ export const DeviceCard = ({ device }) => {
                 <span className="text-[14px] leading-4 font-semibold">
                     {device?.device_name}
                 </span>
-                <span className="text-[12px] leading-3">
+                {/* <span className="text-[12px] leading-3">
                     {device?.section?.name}
-                </span>
+                </span> */}
             </div>
             <div className="flex items-end justify-between">
                 <Toggle title="Включение" />

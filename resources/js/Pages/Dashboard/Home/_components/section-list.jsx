@@ -31,8 +31,6 @@ const SectionList = () => {
         setSectionType(allSections[0]);
     }, []);
 
-    console.log(sectionType);
-
     return (
         <div className="w-full flex gap-x-2">
             {allSections?.length > 0 &&

@@ -7,36 +7,79 @@ import { SectionDeviceContext } from "../_context/section-device-context";
 
 const DeviceList = ({ titleOn = true, listClass }) => {
     const { kitchen } = usePage().props;
-    const { sections } = kitchen;
 
-    const [devices, setDevices] = useState([]);
+    const [sections, setSections] = useState(kitchen.sections || []);
+    console.log(sections);
 
     const { sectionType, deviceType } = useContext(SectionDeviceContext);
 
+    const devices = sections.reduce((acc, section) => {
+        if (
+            !sectionType?.eng ||
+            sectionType.eng === "all" ||
+            section?.eng === sectionType.eng
+        ) {
+            const filteredDevices =
+                section?.devices?.filter(
+                    (device) =>
+                        !deviceType?.value ||
+                        deviceType.value === "all" ||
+                        device.type === deviceType.value
+                ) || [];
+            return acc.concat(filteredDevices);
+        }
+        return acc;
+    }, []);
+
+    // Real-time updates
     useEffect(() => {
-        let filteredDevices = [];
+        const channel = window.Echo.channel("devices");
 
-        if (sectionType?.eng && sectionType.eng !== "all") {
-            const filteredSections = sections.filter(
-                (section) => section?.eng === sectionType?.eng
+        channel.listen("DeviceCreated", (e) => {
+            setSections((currentSections) =>
+                currentSections.map((section) =>
+                    section.id === e.device.section.id
+                        ? {
+                              ...section,
+                              devices: [...section.devices, e.device],
+                          }
+                        : section
+                )
             );
-            filteredDevices = filteredSections.flatMap(
-                (section) => section?.devices || []
-            );
-        } else {
-            filteredDevices = sections.flatMap(
-                (section) => section?.devices || []
-            );
-        }
+        });
 
-        if (deviceType?.value && deviceType.value !== "all") {
-            filteredDevices = filteredDevices.filter(
-                (device) => device.type === deviceType.value
+        channel.listen("DeviceUpdated", (e) => {
+            setSections((currentSections) =>
+                currentSections.map((section) => ({
+                    ...section,
+                    devices: section.devices.map((device) =>
+                        device.id === e.device.id
+                            ? { ...device, ...e.device }
+                            : device
+                    ),
+                }))
             );
-        }
+        });
 
-        setDevices(filteredDevices);
-    }, [sectionType, deviceType, sections]);
+        channel.listen("DeviceDeleted", (e) => {
+            setSections((currentSections) =>
+                currentSections.map((section) => ({
+                    ...section,
+                    devices: section.devices.filter(
+                        (device) => device.id !== e.device.id
+                    ),
+                }))
+            );
+            console.log("deleted", e);
+            console.log(sections, e);
+        });
+
+        return () => {
+            channel.stopListening("DeviceCreated");
+            channel.stopListening("DeviceUpdated");
+            channel.stopListening("DeviceDeleted");
+        };
+    }, []);
 
     return (
         <div className="flex flex-col gap-y-4">
