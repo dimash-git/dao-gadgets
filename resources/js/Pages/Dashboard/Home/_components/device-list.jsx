@@ -9,7 +9,6 @@ const DeviceList = ({ titleOn = true, listClass }) => {
     const { kitchen } = usePage().props;
 
     const [sections, setSections] = useState(kitchen.sections || []);
-    console.log(sections);
 
     const { sectionType, deviceType } = useContext(SectionDeviceContext);
 
@@ -20,18 +19,27 @@ const DeviceList = ({ titleOn = true, listClass }) => {
             section?.eng === sectionType.eng
         ) {
             const filteredDevices =
-                section?.devices?.filter(
-                    (device) =>
-                        !deviceType?.value ||
-                        deviceType.value === "all" ||
-                        device.type === deviceType.value
-                ) || [];
+                section?.devices
+                    ?.filter(
+                        (device) =>
+                            !deviceType?.value ||
+                            deviceType.value === "all" ||
+                            device.type === deviceType.value
+                    )
+                    .map((device) => ({
+                        ...device,
+                        section: {
+                            id: section.id,
+                            name: section.name,
+                            eng: section.eng,
+                        },
+                    })) || [];
             return acc.concat(filteredDevices);
         }
         return acc;
     }, []);
 
-    // Real-time updates
+    // Pusher
     useEffect(() => {
         const channel = window.Echo.channel("devices");
 

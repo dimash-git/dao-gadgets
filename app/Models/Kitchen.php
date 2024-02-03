@@ -27,7 +27,7 @@ class Kitchen extends Model
 
     public function sections(): HasMany
     {
-        return $this->hasMany(KitchenSection::class, 'kitchen_id')->with('devices');;
+        return $this->hasMany(KitchenSection::class, 'kitchen_id')->with('devices');
     }
 
     public function device(): HasMany
