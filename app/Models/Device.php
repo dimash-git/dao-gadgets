@@ -44,6 +44,7 @@ class Device extends Model
         'zigbee_config',
         'manufacturer',
         'model',
-        'type'
+        'type',
+        'order',
     ];
 }

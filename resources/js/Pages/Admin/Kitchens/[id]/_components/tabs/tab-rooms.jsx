@@ -2,7 +2,7 @@ import { Link, usePage } from "@inertiajs/react";
 
 import { HomeIcon, PowerIcon } from "@heroicons/react/24/solid";
 
-import DevicesTree from "../device/devices-tree";
+import Tree from "../tree";
 
 const TabRooms = () => {
     const { kitchen } = usePage().props;
@@ -38,7 +38,7 @@ const TabRooms = () => {
                     <PowerIcon className="h-5 w-5" />
                     <span className="underline">Все секции</span>
                 </Link>
-                {sections?.length > 0 && <DevicesTree tree={tree} />}
+                {sections?.length > 0 && <Tree tree={tree} />}
             </ul>
         </div>
     );

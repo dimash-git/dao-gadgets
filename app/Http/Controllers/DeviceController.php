@@ -132,4 +132,25 @@ class DeviceController extends Controller
 
         return redirect()->back();
     }
+
+    public function updateOrder(Request $request)
+    {
+        $validatedData = $request->validate([
+            'sectionId' => 'required|exists:kitchensections,id',
+            'deviceIds' => 'required|array',
+            'deviceIds.*' => 'required|exists:kitchendevices,id'
+        ]);
+
+        foreach ($validatedData['deviceIds'] as $order => $deviceId) {
+            $device = Device::where('id_kitchen_section', $validatedData['sectionId'])
+                ->where('id', $deviceId)
+                ->first();
+
+            if ($device) {
+                $device->update(['order' => $order]);
+            }
+        }
+
+        return redirect()->back()->with('message', 'Device order updated successfully.');
+    }
 }

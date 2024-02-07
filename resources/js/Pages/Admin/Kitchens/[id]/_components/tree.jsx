@@ -1,24 +1,27 @@
 import { useState } from "react";
 
 import Modal from "@/Components/Modal";
-import DevicesTreeDisclosure from "./devices-tree-disclosure";
-import AddDeviceForm from "./forms/add-device-form";
-import EditDeviceForm from "./forms/edit-device-form";
+import AddDeviceForm from "./device/forms/add-device-form";
+import EditDeviceForm from "./device/forms/edit-device-form";
+import KitchenSectionDisclosure from "./kitchen-section/kitchen-section-disclosure";
 
-const DevicesTree = ({ tree }) => {
+const Tree = ({ tree }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [deviceAction, setDeviceAction] = useState("add" | "edit");
-    const [selectedParent, setSelectedParent] = useState(null);
+    const [selectedItem, setSelectedItem] = useState(null);
 
     return (
         <>
             <div className="mt-4 bg-purple-100 rounded-xl p-2 max-w-lg">
-                <DevicesTreeDisclosure
-                    tree={tree}
-                    openModal={() => setIsModalOpen(true)}
-                    setSelectParent={setSelectedParent}
-                    setDeviceAction={setDeviceAction}
-                />
+                {tree.map((section, idx) => (
+                    <KitchenSectionDisclosure
+                        key={idx}
+                        kitchenSection={section}
+                        setDeviceAction={setDeviceAction}
+                        openModal={() => setIsModalOpen(true)}
+                        setSelectedItem={setSelectedItem}
+                    />
+                ))}
             </div>
             <Modal show={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 <div className="p-4">
@@ -30,7 +33,7 @@ const DevicesTree = ({ tree }) => {
                                 </h2>
                                 <AddDeviceForm
                                     onClose={() => setIsModalOpen(false)}
-                                    section={selectedParent}
+                                    section={selectedItem}
                                 />
                             </>
                         ) : (
@@ -40,7 +43,7 @@ const DevicesTree = ({ tree }) => {
                                 </h2>
                                 <EditDeviceForm
                                     onClose={() => setIsModalOpen(false)}
-                                    device={selectedParent}
+                                    device={selectedItem}
                                 />
                             </>
                         )
@@ -53,4 +56,4 @@ const DevicesTree = ({ tree }) => {
     );
 };
 
-export default DevicesTree;
+export default Tree;

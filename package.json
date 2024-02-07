@@ -28,6 +28,7 @@
         "js-cookie": "^3.0.5",
         "laravel-echo": "^1.15.3",
         "pusher-js": "^8.4.0-rc2",
+        "react-beautiful-dnd": "^13.1.1",
         "react-hot-toast": "^2.4.1",
         "react-select": "^5.8.0",
         "react-simple-tree-menu": "^1.1.18",

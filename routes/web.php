@@ -69,6 +69,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('device-class-values', DeviceClassValuesController::class)
             ->only(['store', 'update', 'destroy',]);
 
+        Route::post('devices/update-order', [DeviceController::class, 'updateOrder'])->name('devices.updateOrder');
+
+
 
         /*
         * Users 
