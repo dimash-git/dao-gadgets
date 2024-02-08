@@ -50,11 +50,18 @@ class DeviceController extends Controller
             'zigbee_config' => 'nullable|string',
             'manufacturer' => 'nullable|string|max:255',
             'model' => 'nullable|string|max:255',
-            'type' => 'in:sensor,door,backlight,tech,other'
+            'type' => 'in:sensor,door,backlight,tech,other',
+            'order' => 'nullable|integer',
         ]);
+
+        // Определяем очередь в 
+        $lastDevice = Device::where('id_kitchen_section', $request->id_kitchen_section)->orderBy('order', 'desc')->first();
+        $validatedData['order'] = isset($lastDevice) ? $lastDevice->order + 1 : 0; // Set to last device's order + 1, or 0 if no devices
 
         $device = Device::create($validatedData);
         // Log::debug($request->all());
+
+
 
         if (isset($validatedData['id_device_class'])) {
 
@@ -111,7 +118,8 @@ class DeviceController extends Controller
             'zigbee_config' => 'nullable|string',
             'manufacturer' => 'nullable|string|max:255',
             'model' => 'nullable|string|max:255',
-            'type' => 'in:sensor,door,backlight,tech,other'
+            'type' => 'in:sensor,door,backlight,tech,other',
+            'order' => 'nullable|integer',
         ]);
 
         $device->update($validatedData);

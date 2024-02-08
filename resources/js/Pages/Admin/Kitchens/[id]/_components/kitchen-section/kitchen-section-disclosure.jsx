@@ -130,10 +130,8 @@ const KitchenSectionDisclosure = ({
                                                                 setDeviceAction={
                                                                     setDeviceAction
                                                                 }
-                                                                openModal={() =>
-                                                                    setIsModalOpen(
-                                                                        true
-                                                                    )
+                                                                openModal={
+                                                                    openModal
                                                                 }
                                                                 setSelectedDevice={
                                                                     setSelectedItem

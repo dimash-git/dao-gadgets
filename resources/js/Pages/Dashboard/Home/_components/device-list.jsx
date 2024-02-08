@@ -89,6 +89,15 @@ const DeviceList = ({ titleOn = true, listClass }) => {
         };
     }, []);
 
+    useEffect(() => {
+        setSections((sections) =>
+            sections.map((section, idx) => ({
+                ...section,
+                devices: section.devices.sort((a, b) => a.order - b.order),
+            }))
+        );
+    }, [sections]);
+
     return (
         <div className="flex flex-col gap-y-4">
             {titleOn && (
