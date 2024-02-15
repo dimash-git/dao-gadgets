@@ -21,6 +21,9 @@ class DeviceController extends Controller
     {
         $devices = Device::with('kitchen:id,name')->with('section:id,name')->latest()->get();
 
+        Log::info("request->all()");
+
+
         return Inertia::render('Admin/Devices/Index', ['devices' => $devices]);
     }
 
@@ -52,6 +55,7 @@ class DeviceController extends Controller
             'model' => 'nullable|string|max:255',
             'type' => 'in:sensor,door,backlight,tech,other',
             'order' => 'nullable|integer',
+            'slider_value' => 'nullable|numeric',
         ]);
 
         // Определяем очередь в 
@@ -120,9 +124,13 @@ class DeviceController extends Controller
             'model' => 'nullable|string|max:255',
             'type' => 'in:sensor,door,backlight,tech,other',
             'order' => 'nullable|integer',
+            'slider_value' => 'nullable|numeric',
         ]);
+        Log::info($request->all());
 
         $device->update($validatedData);
+
+        Log::info($device);
 
         event(new DeviceUpdated($device));
 

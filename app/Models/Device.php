@@ -46,5 +46,6 @@ class Device extends Model
         'model',
         'type',
         'order',
+        "slider_value"
     ];
 }

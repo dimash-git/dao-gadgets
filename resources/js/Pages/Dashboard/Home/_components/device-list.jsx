@@ -96,7 +96,7 @@ const DeviceList = ({ titleOn = true, listClass }) => {
                 devices: section.devices.sort((a, b) => a.order - b.order),
             }))
         );
-    }, [sections]);
+    }, []);
 
     return (
         <div className="flex flex-col gap-y-4">
@@ -107,10 +107,9 @@ const DeviceList = ({ titleOn = true, listClass }) => {
                 </div>
             )}
             <div className={cn("grid gap-[10px]", listClass ?? null)}>
-                {devices &&
-                    devices?.length > 0 &&
+                {devices.length > 0 &&
                     // полученные девайсы с запроса пробегаем через функцию js map, и рендерим карточку для каждого
-                    devices?.map((device, idx) => (
+                    devices.map((device, idx) => (
                         <DeviceCard key={idx} device={device} />
                         // key обяз параметр когда рендерятся элементы через map
                     ))}

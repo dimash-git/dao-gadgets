@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { Switch } from "@headlessui/react";
 import CrossIcon from "../../../images/switch-icon_false.svg";
 import CheckIcon from "../../../images/switch-icon_true.svg";
 import { cn } from "@/lib/utils";
 
-const Toggle = ({ title }) => {
-    const [enabled, setEnabled] = useState(false);
+const Toggle = ({ title, checked, checkedHandler }) => {
     return (
         <div className="flex flex-col gap-y-2">
             {title && (
@@ -15,8 +13,8 @@ const Toggle = ({ title }) => {
             )}
             <div>
                 <Switch
-                    checked={enabled}
-                    onChange={setEnabled}
+                    checked={checked}
+                    onChange={() => checkedHandler()}
                     className="  
                     h-[33px]
                     w-[64px]
@@ -30,13 +28,13 @@ const Toggle = ({ title }) => {
                     <div
                         className={cn(
                             "bg-no-repeat w-full h-full relative inline-flex",
-                            enabled
+                            checked
                                 ? "bg-[center_left_10px]"
                                 : "bg-[center_right_10px]"
                         )}
                         style={{
                             backgroundImage: `url(${
-                                enabled ? CheckIcon : CrossIcon
+                                checked ? CheckIcon : CrossIcon
                             })`,
                         }}
                     >
@@ -44,7 +42,7 @@ const Toggle = ({ title }) => {
                             aria-hidden="true"
                             className={cn(
                                 "inline-block translate-y-[2.5px] pointer-events-none h-7 w-7 rounded-full bg-white shadow-[0px_3px_6px_rgba(0,78,157,0.16)] transform transition duration-200 ease-in-out",
-                                enabled
+                                checked
                                     ? "translate-x-8"
                                     : "translate-x-[2.5px]"
                             )}

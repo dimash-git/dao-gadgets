@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DeviceController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,5 +30,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/online-services', function () {
             return Inertia::render('Dashboard/OnlineServices/Index');
         })->name('online-services');
+
+
+        // For update
+
+        Route::resource('devices', DeviceController::class)
+            ->only(['update']);
     });
 });
