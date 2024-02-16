@@ -118,6 +118,15 @@ const DeviceForm = ({
                         placeholder="Выберите класс устройства"
                     />
                 </div>
+                <div>
+                    <TextInput
+                        value={formData.slider_value}
+                        placeholder="Введите значение слайдера"
+                        onChange={(e) =>
+                            onChange("slider_value", e.target.value)
+                        }
+                    />
+                </div>
             </div>
 
             <div className="flex justify-center">{children}</div>

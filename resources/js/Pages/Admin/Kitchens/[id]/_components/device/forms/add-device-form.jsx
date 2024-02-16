@@ -22,6 +22,7 @@ const AddDeviceForm = ({ section, onClose }) => {
         model: "",
         is_active: 1,
         id_device_class: device_classes[0]?.id ?? "",
+        slider_value: 0,
     };
 
     const { data, setData, post, errors } = useForm(defaultValues);

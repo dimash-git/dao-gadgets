@@ -13,8 +13,6 @@ export const DeviceCard = ({ device }) => {
     const { id, section, order, created_at, updated_at, ...restDevice } =
         device;
 
-    console.log(device);
-
     const [range, setRange] = useState(device.slider_value);
     const debouncedRange = useDebounce(range, 500);
 
@@ -30,9 +28,17 @@ export const DeviceCard = ({ device }) => {
     }, []);
 
     useEffect(() => {
+        setRange(device.slider_value);
+    }, [device.slider_value]);
+
+    useEffect(() => {
+        setToggle(device.is_active === 1);
+    }, [device.is_active]);
+
+    useEffect(() => {
         if (!isMounted) return;
 
-        Inertia.patch(route("devices.update", id), {
+        Inertia.patch(route("user.devices.update", id), {
             ...restDevice,
             slider_value: debouncedRange,
         });
@@ -41,12 +47,10 @@ export const DeviceCard = ({ device }) => {
     useEffect(() => {
         if (!isMounted) return;
 
-        if (device.type === "backlight") {
-            Inertia.patch(route("devices.update", id), {
-                ...restDevice,
-                is_active: toggle ? 1 : 0,
-            });
-        }
+        Inertia.patch(route("user.devices.update", id), {
+            ...restDevice,
+            is_active: toggle ? 1 : 0,
+        });
     }, [toggle, device.id]);
 
     return (

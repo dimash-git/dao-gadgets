@@ -21,9 +21,6 @@ class DeviceController extends Controller
     {
         $devices = Device::with('kitchen:id,name')->with('section:id,name')->latest()->get();
 
-        Log::info("request->all()");
-
-
         return Inertia::render('Admin/Devices/Index', ['devices' => $devices]);
     }
 
@@ -126,6 +123,7 @@ class DeviceController extends Controller
             'order' => 'nullable|integer',
             'slider_value' => 'nullable|numeric',
         ]);
+
         Log::info($request->all());
 
         $device->update($validatedData);

@@ -34,7 +34,6 @@ Route::middleware('auth')->group(function () {
 
         // For update
 
-        Route::resource('devices', DeviceController::class)
-            ->only(['update']);
+        Route::patch('/devices/{device}', [DeviceController::class, 'update'])->name('user.devices.update');
     });
 });

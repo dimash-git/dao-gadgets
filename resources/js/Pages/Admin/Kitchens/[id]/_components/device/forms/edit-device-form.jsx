@@ -22,6 +22,7 @@ const EditDeviceForm = ({ device, onClose }) => {
         model,
         is_active,
         id_device_class,
+        slider_value,
     } = device;
 
     console.log(device);
@@ -40,6 +41,7 @@ const EditDeviceForm = ({ device, onClose }) => {
         model,
         is_active,
         id_device_class,
+        slider_value,
     };
 
     const {
