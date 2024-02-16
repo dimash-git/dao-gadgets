@@ -14,8 +14,15 @@ class Devicevalues extends Model
 
     public function device(): BelongsTo
     {
-        return $this->belongsTo(Device::class,'id_device_value');
+        return $this->belongsTo(Device::class, 'id_kitchen_device');
     }
+
+    public function deviceclassvalue(): BelongsTo
+    {
+        // Assuming 'id_device_value' is the foreign key in the 'devicevalues' table that references the 'id' in 'deviceclassvalues' table
+        return $this->belongsTo(Devicesclassvalues::class, 'id_device_value', 'id');
+    }
+
     protected $fillable = [
         'id_device_value',
         'id_kitchen_device',

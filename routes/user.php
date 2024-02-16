@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\DeviceValueController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,7 +15,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/home', function () {
             $user_kitchen = Auth::user()->kitchen;
-            $user_kitchen->refresh()->load('sections');
+            $user_kitchen->refresh()->load('sections.devices.devicevalues.deviceclassvalue');
             return Inertia::render('Dashboard/Home/Index', ['kitchen' => $user_kitchen]);
         })->name('home');
 
@@ -32,8 +32,7 @@ Route::middleware('auth')->group(function () {
         })->name('online-services');
 
 
-        // For update
-
-        Route::patch('/devices/{device}', [DeviceController::class, 'update'])->name('user.devices.update');
+        // For parameters update
+        Route::patch('/device-values/{devicevalue}', [DeviceValueController::class, 'update'])->name('user.devicevalues.update');
     });
 });

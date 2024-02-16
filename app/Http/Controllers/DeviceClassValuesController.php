@@ -41,9 +41,7 @@ class DeviceClassValuesController extends Controller
             'independent_device' => 'required|integer',
             'type' => 'required|string|max:255',
             'in_scenario_active' => 'required|integer',
-
             'front_type' => 'in:toggle,slider,checkbox',
-
         ]);
         $validatedData['eng'] = str_slug($validatedData['name']);
 

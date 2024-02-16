@@ -10,6 +10,8 @@ const DeviceList = ({ titleOn = true, listClass }) => {
 
     const [sections, setSections] = useState(kitchen.sections || []);
 
+    // console.log(sections);
+
     const { sectionType, deviceType } = useContext(SectionDeviceContext);
 
     const devices = sections.reduce((acc, section) => {

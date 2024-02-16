@@ -52,7 +52,6 @@ class DeviceController extends Controller
             'model' => 'nullable|string|max:255',
             'type' => 'in:sensor,door,backlight,tech,other',
             'order' => 'nullable|integer',
-            'slider_value' => 'nullable|numeric',
         ]);
 
         // Определяем очередь в 
@@ -121,7 +120,6 @@ class DeviceController extends Controller
             'model' => 'nullable|string|max:255',
             'type' => 'in:sensor,door,backlight,tech,other',
             'order' => 'nullable|integer',
-            'slider_value' => 'nullable|numeric',
         ]);
 
         Log::info($request->all());

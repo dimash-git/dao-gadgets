@@ -7,7 +7,7 @@ import Socials from "@/Components/header/socials";
 import Accordion from "@/Components/ui/accordion";
 import NotifCard from "@/Components/cards/notif-card";
 import { cart, notifCards, parcels, services } from "@/constants/header-items";
-import Toggle from "../ui/toggle";
+import Toggle from "../toggle";
 import { Link } from "@inertiajs/react";
 
 const Sidebar = () => {

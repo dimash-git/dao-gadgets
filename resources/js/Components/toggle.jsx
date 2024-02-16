@@ -1,6 +1,6 @@
 import { Switch } from "@headlessui/react";
-import CrossIcon from "../../../images/switch-icon_false.svg";
-import CheckIcon from "../../../images/switch-icon_true.svg";
+import CrossIcon from "../../images/switch-icon_false.svg";
+import CheckIcon from "../../images/switch-icon_true.svg";
 import { cn } from "@/lib/utils";
 
 const Toggle = ({ title, checked, checkedHandler }) => {

@@ -26,7 +26,7 @@ class Device extends Model
 
     public function devicevalues(): HasMany
     {
-        return $this->hasMany(Devicevalues::class, 'id_device_value');
+        return $this->hasMany(Devicevalues::class, 'id_kitchen_device');
     }
 
     // надо указать какие поля можем заполнять в бд
@@ -46,6 +46,5 @@ class Device extends Model
         'model',
         'type',
         'order',
-        "slider_value"
     ];
 }
