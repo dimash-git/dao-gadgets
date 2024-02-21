@@ -61,21 +61,23 @@ class DeviceController extends Controller
         $device = Device::create($validatedData);
         // Log::debug($request->all());
 
-
-
         if (isset($validatedData['id_device_class'])) {
 
             $devicesClass = Devicesclass::find($validatedData['id_device_class']);
 
             if ($devicesClass) {
-                Devicevalues::create(
-                    [
-                        'id_device_value' => $devicesClass->id,
-                        'id_kitchen_device' => $device->id,
-                        'property' => $devicesClass->name,
-                        'value' => '',
-                    ]
-                );
+
+                $parameters = $devicesClass->devicesclassvalues;
+
+
+                foreach ($parameters as $parameter) {
+                    Devicevalues::create([
+                        'id_device_value' => $parameter->id, // ID of the parameter
+                        'id_kitchen_device' => $device->id, // ID of the newly created device
+                        'property' => $parameter->name, // Name of the parameter
+                        'value' => '0', // Default value
+                    ]);
+                }
             }
         }
 

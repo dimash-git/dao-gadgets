@@ -24,8 +24,12 @@ export const DeviceCard = ({ device }) => {
             </div>
             <div className="flex items-end justify-between">
                 {device?.devicevalues.length > 0 &&
-                    device.devicevalues.map((param, idx) => (
-                        <Parameter key={idx} device={restDevice} data={param} />
+                    device.devicevalues.map((parameter, idx) => (
+                        <Parameter
+                            key={idx}
+                            device={restDevice}
+                            parameter={parameter}
+                        />
                     ))}
                 <FavoriteIcon className="mb-2 transition text-app-gray hover:text-purple-500 cursor-pointer" />
             </div>
