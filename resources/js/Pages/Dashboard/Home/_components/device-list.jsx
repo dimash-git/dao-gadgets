@@ -1,4 +1,4 @@
-import { DeviceCard } from "@/Components/cards/device-card";
+import DeviceCard from "@/Components/cards/device-card";
 import SparkIcon from "../../../../../images/quick-functions-icon_day.svg?react";
 import { cn } from "@/lib/utils";
 import { usePage } from "@inertiajs/react";

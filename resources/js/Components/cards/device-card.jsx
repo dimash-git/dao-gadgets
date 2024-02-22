@@ -1,13 +1,37 @@
+import { cn } from "@/lib/utils";
 import DeviceIcon from "../../../images/device-icon_scales.svg";
 import FavoriteIcon from "../../../images/favorite-button_remove.svg?react";
 
 import Parameter from "../parameter";
+import { useState } from "react";
+import { usePage } from "@inertiajs/react";
+import { Inertia } from "@inertiajs/inertia";
 
-export const DeviceCard = ({ device }) => {
+const DeviceCard = ({ device }) => {
     if (!device) return null;
     const { section, order, created_at, updated_at, ...restDevice } = device;
 
-    // console.log(device.device_name, device.devicevalues);
+    const { favorites } = usePage().props;
+
+    const [isFavorite, setIsFavorite] = useState(
+        favorites.find((f) => f.id === device.id)
+    );
+
+    const handleFavorite = () => {
+        Inertia.post(
+            route("user.toggleFavorite", device.id),
+            {},
+            {
+                onSuccess: (page) => {
+                    console.log("Success", page);
+                },
+                onError: (errors) => {
+                    console.error("Error toggling favorite", errors);
+                },
+            }
+        );
+        setIsFavorite((prev) => !prev);
+    };
 
     return (
         <div
@@ -31,8 +55,19 @@ export const DeviceCard = ({ device }) => {
                             parameter={parameter}
                         />
                     ))}
-                <FavoriteIcon className="mb-2 transition text-app-gray hover:text-purple-500 cursor-pointer" />
+                <button type="button" onClick={handleFavorite}>
+                    <FavoriteIcon
+                        className={cn(
+                            "mb-2 transition cursor-pointer",
+                            isFavorite
+                                ? "text-purple-500"
+                                : "text-app-gray hover:text-purple-500"
+                        )}
+                    />
+                </button>
             </div>
         </div>
     );
 };
+
+export default DeviceCard;

@@ -89,4 +89,22 @@ class UserController extends Controller
 
         return redirect()->back();
     }
+
+    /**
+     * Toggle favorite device from user.
+     */
+    public function toggleFavorite(Request $request, $device_id)
+    {
+        $user = $request->user();
+
+        $isFavorited = $user->favorites()->where('device_id', $device_id)->exists();
+
+        if ($isFavorited) {
+            $user->favorites()->detach($device_id);
+        } else {
+            $user->favorites()->attach($device_id);
+        }
+
+        return redirect()->back();
+    }
 }

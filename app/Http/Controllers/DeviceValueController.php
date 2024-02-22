@@ -6,6 +6,10 @@ use App\Events\DeviceUpdated;
 use App\Models\Device;
 use App\Models\Devicevalues;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
+use Bluerhinos\phpMQTT;
+
 
 class DeviceValueController extends Controller
 {
@@ -68,7 +72,7 @@ class DeviceValueController extends Controller
         // Fire the DeviceUpdated event with the Device instance
         event(new DeviceUpdated($device));
 
-        return redirect()->back()->with('message', 'Device Value successfully updated.');
+        return redirect()->back()->with('message', 'Device Value was successfully updated.');
     }
 
     /**

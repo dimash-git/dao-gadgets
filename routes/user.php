@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DeviceValueController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -10,13 +11,21 @@ Route::middleware('auth')->group(function () {
     // if user go to dashboard
     Route::prefix('dashboard')->middleware(['role:user'])->group(function () {
         Route::get('/', function () {
-            return Inertia::render('Dashboard/Index');
+            $user_kitchen = Auth::user()->kitchen;
+            $user_kitchen->refresh()->load('sections.devices.devicevalues.deviceclassvalue');
+
+            $user_favorites = Auth::user()->favorites;
+
+            return Inertia::render('Dashboard/Index', ['kitchen' => $user_kitchen, 'favorites' => $user_favorites]);
         })->name('dashboard');
 
         Route::get('/home', function () {
             $user_kitchen = Auth::user()->kitchen;
             $user_kitchen->refresh()->load('sections.devices.devicevalues.deviceclassvalue');
-            return Inertia::render('Dashboard/Home/Index', ['kitchen' => $user_kitchen]);
+
+            $user_favorites = Auth::user()->favorites;
+
+            return Inertia::render('Dashboard/Home/Index', ['kitchen' => $user_kitchen, 'favorites' => $user_favorites]);
         })->name('home');
 
         Route::get('/market', function () {
@@ -34,5 +43,8 @@ Route::middleware('auth')->group(function () {
 
         // For parameters update
         Route::patch('/device-values/{devicevalue}', [DeviceValueController::class, 'update'])->name('user.devicevalues.update');
+
+        // User favorites
+        Route::post('/favorites/{device_id}', [UserController::class, 'toggleFavorite'])->name('user.toggleFavorite');
     });
 });

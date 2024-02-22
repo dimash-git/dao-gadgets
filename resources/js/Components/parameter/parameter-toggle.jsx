@@ -12,8 +12,6 @@ const ParameterToggle = ({ parameter, device }) => {
 
     const [toggle, setToggle] = useState(Number(value) === 1 ?? 0);
 
-    console.log(toggle);
-
     const toggleHandler = useCallback(() => {
         setToggle((prev) => !prev);
     }, []);
