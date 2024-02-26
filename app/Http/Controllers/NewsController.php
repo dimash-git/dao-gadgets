@@ -40,10 +40,18 @@ class NewsController extends Controller
             'kitchen_ids.*' => 'integer|exists:kitchens,id', // Validates each element in the array
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'cover' => 'nullable|string|max:255',
+            'cover' => 'nullable|file|image|max:1024'
         ]);
 
-        $news = News::create($validatedData);
+        if ($request->hasFile('cover')) {
+            $filePath = $request->file('cover')->store('news_covers', 'public');
+        }
+
+        $news = News::create([
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+            'cover' => $filePath ?? null,
+        ]);
 
         $news->kitchens()->attach($validatedData['kitchen_ids']);
 
@@ -106,14 +114,5 @@ class NewsController extends Controller
         $news->delete();
 
         return redirect()->route('news.index')->with('message', 'News successfully deleted.');
-    }
-
-    public function displayForUsers()
-    {
-        $user = auth()->user();
-
-        $newsItems = $user->kitchen->news()->latest()->get();
-
-        return Inertia::render('User/News/Index', ['news_list' => $newsItems]);
     }
 }

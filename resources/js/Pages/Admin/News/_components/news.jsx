@@ -1,7 +1,6 @@
 import { Link } from "@inertiajs/react";
 
 const News = ({ news, id }) => {
-    console.log(news);
     return (
         <tr className="workarea__table-row">
             <td className="workarea__table-data">{id}</td>

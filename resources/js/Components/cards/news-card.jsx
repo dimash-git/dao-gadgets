@@ -1,14 +1,18 @@
 import React from "react";
-import DummyImage from "../../../images/img.png";
+import DummyImage from "../../../images/dummy.jpg";
 
 const NewsCard = ({ news }) => {
+    console.log(news);
+    const imageUrl = news?.cover ? `/storage/${news.cover}` : DummyImage;
+
     return (
         <div className="flex flex-col gap-y-3">
             <img
-                src={news?.img}
+                src={imageUrl}
                 alt={news?.title}
-                className="rounded-[10px]"
+                className="rounded-[10px] h-[119px] w-full object-cover"
             />
+
             <div>
                 <h3 className="text-[14px] leading-4 font-semibold">
                     {news?.title}

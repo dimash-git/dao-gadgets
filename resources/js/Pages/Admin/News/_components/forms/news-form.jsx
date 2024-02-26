@@ -12,8 +12,15 @@ const NewsForm = ({
     kitchens,
     children,
 }) => {
+    const handleFileChange = (e) => {
+        onChange("cover", e.target.files[0]);
+    };
     return (
-        <form onSubmit={onSubmit} className="workarea__form">
+        <form
+            onSubmit={onSubmit}
+            className="workarea__form"
+            encType="multipart/form-data"
+        >
             {errors &&
                 Object.keys(errors).map((key) => (
                     <InputError key={key}>{errors[key]}</InputError>
@@ -75,6 +82,16 @@ const NewsForm = ({
                         }
                         placeholder="Введите описание"
                     />
+                </div>
+                <div className="workarea__input-row">
+                    <InputLabel value="Обложка" htmlFor="news.cover" />
+                    <input
+                        type="file"
+                        id="news.cover"
+                        onChange={handleFileChange}
+                        accept="image/*"
+                    />
+                    {errors?.cover && <InputError>{errors.cover}</InputError>}
                 </div>
             </div>
 
