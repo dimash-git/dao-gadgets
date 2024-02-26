@@ -1,6 +1,7 @@
 import NewsCard from "@/Components/cards/news-card";
 import InfoIcon from "../../../../images/news-icon_day.svg?react";
 import { useState, useEffect } from "react";
+import { usePage } from "@inertiajs/react";
 
 // const news = [
 //     {
@@ -21,21 +22,8 @@ import { useState, useEffect } from "react";
 // ];
 
 const NewsList = () => {
-    const [news, setNews] = useState([]);
-    useEffect(() => {
-        const fetchNews = async () => {
-            try {
-                const res = await axios.get("/api/news", {
-                    withCredentials: true,
-                }); // Adjust the URL as needed
-                const { data } = res;
-                setNews(data);
-            } catch (error) {
-                console.error("Error fetching news: ", error);
-            }
-        };
-        fetchNews();
-    }, []);
+    const { news_list } = usePage().props;
+
     return (
         <div className="flex flex-col gap-y-4">
             <div className="flex gap-x-2 text-[20px] leading-5">
@@ -43,8 +31,10 @@ const NewsList = () => {
                 Новости и объявления
             </div>
             <div className="grid gap-4 max-md:grid-cols-2 md:grid-flow-col md:auto-cols-[190px]">
-                {news.length > 0 &&
-                    news.map((news, idx) => <NewsCard key={idx} news={news} />)}
+                {news_list.length > 0 &&
+                    news_list.map((news, idx) => (
+                        <NewsCard key={idx} news={news} />
+                    ))}
             </div>
         </div>
     );

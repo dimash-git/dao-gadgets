@@ -69,7 +69,7 @@ const DeviceList = ({ titleOn = true, listClass }) => {
             )}
             <div className={cn("grid gap-[10px]", listClass ?? null)}>
                 {favoriteDevices.map((device, idx) => (
-                    <DeviceCard key={idx} device={device} />
+                    <DeviceCard key={idx} device={device} favAllow={false} />
                 ))}
             </div>
         </div>

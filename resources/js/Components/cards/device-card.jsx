@@ -7,7 +7,7 @@ import { useState } from "react";
 import { usePage } from "@inertiajs/react";
 import { Inertia } from "@inertiajs/inertia";
 
-const DeviceCard = ({ device }) => {
+const DeviceCard = ({ device, favAllow = true }) => {
     if (!device) return null;
     const { section, order, created_at, updated_at, ...restDevice } = device;
 
@@ -55,16 +55,18 @@ const DeviceCard = ({ device }) => {
                             parameter={parameter}
                         />
                     ))}
-                <button type="button" onClick={handleFavorite}>
-                    <FavoriteIcon
-                        className={cn(
-                            "mb-2 transition cursor-pointer",
-                            isFavorite
-                                ? "text-purple-500"
-                                : "text-app-gray hover:text-purple-500"
-                        )}
-                    />
-                </button>
+                {favAllow && (
+                    <button type="button" onClick={handleFavorite}>
+                        <FavoriteIcon
+                            className={cn(
+                                "mb-2 transition cursor-pointer",
+                                isFavorite
+                                    ? "text-purple-500"
+                                    : "text-app-gray hover:text-purple-500"
+                            )}
+                        />
+                    </button>
+                )}
             </div>
         </div>
     );

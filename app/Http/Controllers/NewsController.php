@@ -107,4 +107,13 @@ class NewsController extends Controller
 
         return redirect()->route('news.index')->with('message', 'News successfully deleted.');
     }
+
+    public function displayForUsers()
+    {
+        $user = auth()->user();
+
+        $newsItems = $user->kitchen->news()->latest()->get();
+
+        return Inertia::render('User/News/Index', ['news_list' => $newsItems]);
+    }
 }

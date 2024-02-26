@@ -1,6 +1,7 @@
 import { Link } from "@inertiajs/react";
 
 const News = ({ news, id }) => {
+    console.log(news);
     return (
         <tr className="workarea__table-row">
             <td className="workarea__table-data">{id}</td>
@@ -10,7 +11,9 @@ const News = ({ news, id }) => {
                     {news?.title}
                 </Link>
             </td>
-            <td className="workarea__table-data">{String(news?.ids)}</td>
+            <td className="workarea__table-data">
+                {String(news?.kitchens.map((kitchen) => kitchen.name))}
+            </td>
             <td className="workarea__table-data">{news?.description}</td>
         </tr>
     );

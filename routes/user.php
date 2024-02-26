@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DeviceValueController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,9 @@ Route::middleware('auth')->group(function () {
 
             $user_favorites = Auth::user()->favorites;
 
-            return Inertia::render('Dashboard/Index', ['kitchen' => $user_kitchen, 'favorites' => $user_favorites]);
+            $kitchen_news = Auth::user()->kitchen->news()->latest()->get();
+
+            return Inertia::render('Dashboard/Index', ['kitchen' => $user_kitchen, 'favorites' => $user_favorites, 'news_list' => $kitchen_news]);
         })->name('dashboard');
 
         Route::get('/home', function () {
@@ -46,5 +49,7 @@ Route::middleware('auth')->group(function () {
 
         // User favorites
         Route::post('/favorites/{device_id}', [UserController::class, 'toggleFavorite'])->name('user.toggleFavorite');
+
+        Route::get('/news', [NewsController::class, 'update'])->name('user.news');
     });
 });
